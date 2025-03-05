@@ -15,15 +15,10 @@ export default class Assinatura {
   @Column({ type: 'date' })
   fimFidelidade: Date;
 
-  constructor(
-    codPlano: Plano,
-    codCli: Cliente,
-    inicioFidelidade: Date,
-    fimFidelidade: Date,
-  ) {
+  constructor(codPlano: Plano, codCli: Cliente) {
     this.codPlano = codPlano;
     this.codCli = codCli;
-    this.inicioFidelidade = inicioFidelidade;
-    this.fimFidelidade = fimFidelidade;
+    this.inicioFidelidade = new Date();
+    this.fimFidelidade = new Date();
   }
 }

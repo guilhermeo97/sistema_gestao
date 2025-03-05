@@ -1,4 +1,12 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
+import { ListarClientesCadastrados } from 'src/aplicacao/casos de uso/listar-clientes-cadastrados.use-case';
 
-@Controller()
-export class ClienteController {}
+@Controller('/gestao')
+export class ClienteController {
+  constructor(private readonly listarClientes: ListarClientesCadastrados) {}
+
+  @Get('/clientes')
+  async listarTodosClientes() {
+    await this.listarClientes.listarTodosClientes();
+  }
+}

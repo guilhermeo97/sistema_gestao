@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import Assinatura from 'src/dominio/entidades/assinatura.entity';
-import { Repository } from 'typeorm';
+import { LessThan, MoreThanOrEqual, Repository } from 'typeorm';
 
 @Injectable()
-export class AssinaturadRepository extends Repository<Assinatura> {
+export class AssinaturaRepository extends Repository<Assinatura> {
   async buscarPorId(codigo: number): Promise<Assinatura> {
     return await this.findOne({ where: { codigo } });
   }
@@ -12,11 +12,19 @@ export class AssinaturadRepository extends Repository<Assinatura> {
     return await this.find();
   }
 
-  async salvse(assinatura: Assinatura): Promise<Assinatura> {
+  async salvar(assinatura: Assinatura): Promise<Assinatura> {
     return await this.save(assinatura);
   }
 
   async deletar(codigo: number): Promise<void> {
     await this.delete(codigo);
+  }
+
+  async buscarAtivos(): Promise<Assinatura[]> {
+    return await this.findBy({ fimFidelidade: MoreThanOrEqual(new Date()) });
+  }
+
+  async buscarCancelados(): Promise<Assinatura[]> {
+    return await this.findBy({ fimFidelidade: LessThan(new Date()) });
   }
 }
