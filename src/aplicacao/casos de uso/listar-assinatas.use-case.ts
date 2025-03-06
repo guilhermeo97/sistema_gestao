@@ -13,25 +13,28 @@ export class ListarAssinaturasCadastradas {
   async listar(tipo: string) {
     try {
       switch (tipo) {
-        case 'TODOS':
+        case 'TODOS': {
           const listarTodos = await this.assinaturaRepository.buscarTodos();
           const exibirTodos = listarTodos.map((assinatura) => {
             new ExibirAssinaturaDto(assinatura);
           });
           return exibirTodos;
-        case 'ATIVOS':
+        }
+        case 'ATIVOS': {
           const listarAtivos = await this.assinaturaRepository.buscarAtivos();
           const exibirAtivos = listarAtivos.map((assinatura) => {
             new ExibirAssinaturaDto(assinatura);
           });
           return exibirAtivos;
-        case 'CANCELADOS':
+        }
+        case 'CANCELADOS': {
           const listarCancelados =
             await this.assinaturaRepository.buscarCancelados();
           const exibirCancelados = listarCancelados.map((assinatura) => {
             new ExibirAssinaturaDto(assinatura);
           });
           return exibirCancelados;
+        }
         default:
           throw new BadRequestException('Tipo não enontrado');
       }

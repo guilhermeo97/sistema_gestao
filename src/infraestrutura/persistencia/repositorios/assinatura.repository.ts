@@ -27,4 +27,12 @@ export class AssinaturaRepository extends Repository<Assinatura> {
   async buscarCancelados(): Promise<Assinatura[]> {
     return await this.findBy({ fimFidelidade: LessThan(new Date()) });
   }
+
+  async buscarAssinaturasPorCliente(codCliente: number): Promise<Assinatura[]> {
+    return await this.find({ where: { codCli: { codigo: codCliente } } });
+  }
+
+  async buscarAssinaturasPorPlano(codPlano: number): Promise<Assinatura[]> {
+    return await this.find({ where: { codPlano: { codigo: codPlano } } });
+  }
 }

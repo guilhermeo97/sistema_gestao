@@ -1,6 +1,5 @@
 import { Body, Controller, Get, Param, Patch } from '@nestjs/common';
 import { AtualizarCustoPlano } from 'src/aplicacao/casos de uso/atualizar-custo-plano.use-case';
-import { ListarAssinaturasPlano } from 'src/aplicacao/casos de uso/listar-assinaturas-plano.use-case';
 import { ListarPlanosCadastrados } from 'src/aplicacao/casos de uso/listar-planos-cadastrados.use-case';
 import { AtualizarCustoPlanoDto } from 'src/aplicacao/dto/atualizarcusto-plano.dto';
 
@@ -9,7 +8,6 @@ export class PlanoController {
   constructor(
     private readonly listarPlanosCadastrados: ListarPlanosCadastrados,
     private readonly atualizarCustoPlano: AtualizarCustoPlano,
-    private readonly listarAssinaturasPlano: ListarAssinaturasPlano,
   ) {}
   @Patch('/:codPlano')
   async atualizarPlano(

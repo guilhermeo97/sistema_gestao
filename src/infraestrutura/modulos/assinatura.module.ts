@@ -6,6 +6,8 @@ import { CriarAssinatura } from 'src/aplicacao/casos de uso/criar-assinatura.use
 import { ListarAssinaturasCadastradas } from 'src/aplicacao/casos de uso/listar-assinatas.use-case';
 import { PlanoModule } from './plano.module';
 import { ClienteModule } from './cliente.module';
+import { ListarAssinaturasCliente } from 'src/aplicacao/casos de uso/listar-assinaturas-cliente.use-case';
+import { ListarAssinaturasPlano } from 'src/aplicacao/casos de uso/listar-assinaturas-plano.use-case';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Assinatura]), PlanoModule, ClienteModule],
@@ -13,6 +15,8 @@ import { ClienteModule } from './cliente.module';
     AssinaturaRepository,
     CriarAssinatura,
     ListarAssinaturasCadastradas,
+    ListarAssinaturasCliente,
+    ListarAssinaturasPlano,
   ],
 })
 export class AssinaturaModule {}
