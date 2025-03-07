@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CriarAssinatura } from 'src/aplicacao/casos de uso/criar-assinatura.use-case';
 import { ListarAssinaturasCadastradas } from 'src/aplicacao/casos de uso/listar-assinatas.use-case';
 import { ListarAssinaturasCliente } from 'src/aplicacao/casos de uso/listar-assinaturas-cliente.use-case';
@@ -15,7 +15,7 @@ export class AssinaturaController {
   ) {}
 
   @Post()
-  async salvar(criarAssinaturaDto: CriarAssinaturaDto) {
+  async salvar(@Body() criarAssinaturaDto: CriarAssinaturaDto) {
     return await this.criarAssinatura.salvar(criarAssinaturaDto);
   }
 

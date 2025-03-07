@@ -2,27 +2,27 @@ import { AssinaturaRepository } from 'src/infraestrutura/persistencia/repositori
 import { CriarAssinaturaDto } from '../dto/criar-assinatura.dto';
 import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { ExibirAssinaturaDto } from '../dto/exibir-assinatura.dto';
-import { BuscarPlano } from './buscar-plano.use-case';
-import { BuscarCliente } from './buscar-cliente.use-case';
-import Assinatura from 'src/dominio/entidades/assinatura.entity';
+import Assinatura from 'src/dominio/entidades/assinatura';
+import PlanoRepository from 'src/infraestrutura/persistencia/repositorios/plano.repository';
+import { ClienteRepository } from 'src/infraestrutura/persistencia/repositorios/cliente.repository';
 
 @Injectable()
 export class CriarAssinatura {
   constructor(
     private readonly assinaturaRepository: AssinaturaRepository,
-    private readonly buscarPlano: BuscarPlano,
-    private readonly buscarCliente: BuscarCliente,
+    private readonly planoRepository: PlanoRepository,
+    private readonly clienteRepository: ClienteRepository,
   ) {}
 
   async salvar(criarAssinaturaDto: CriarAssinaturaDto) {
     try {
-      const buscarPlano = await this.buscarPlano.buscarPlano(
+      const buscarPlano = await this.planoRepository.buscarPorId(
         criarAssinaturaDto.codPlano,
       );
       if (!buscarPlano) {
         throw new NotFoundException('Plano não encontrado');
       }
-      const buscarCliente = await this.buscarCliente.buscarCliente(
+      const buscarCliente = await this.clienteRepository.buscarPorId(
         criarAssinaturaDto.codCli,
       );
       if (!buscarCliente) {
@@ -34,7 +34,10 @@ export class CriarAssinatura {
         await this.assinaturaRepository.salvar(instanciarAssinatura);
       const exibirAssinatura = new ExibirAssinaturaDto(assinatura);
       return exibirAssinatura;
-    } catch {
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
       throw new HttpException('Erro ao salvar assinatura', 500);
     }
   }

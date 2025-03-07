@@ -1,4 +1,4 @@
-import Assinatura from 'src/dominio/entidades/assinatura.entity';
+import Assinatura from 'src/dominio/entidades/assinatura';
 
 export class ExibirAssinaturaDto {
   codigo: number;

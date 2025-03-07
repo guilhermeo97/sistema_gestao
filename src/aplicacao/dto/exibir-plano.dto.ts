@@ -1,4 +1,4 @@
-import Plano from 'src/dominio/entidades/plano.entity';
+import Plano from 'src/dominio/entidades/plano';
 
 export class ExibirPlanoDto {
   codigo: number;

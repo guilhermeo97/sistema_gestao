@@ -1,4 +1,4 @@
-import Cliente from 'src/dominio/entidades/cliente.entity';
+import Cliente from 'src/dominio/entidades/cliente';
 
 export class ExibirClientesDto {
   codigo: number;

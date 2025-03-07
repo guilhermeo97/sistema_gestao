@@ -3,7 +3,6 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-import Plano from 'src/dominio/entidades/plano.entity';
 import PlanoRepository from 'src/infraestrutura/persistencia/repositorios/plano.repository';
 import { ExibirPlanoDto } from '../dto/exibir-plano.dto';
 
@@ -11,17 +10,21 @@ import { ExibirPlanoDto } from '../dto/exibir-plano.dto';
 export class ListarPlanosCadastrados {
   constructor(private readonly planoRepository: PlanoRepository) {}
 
-  async listarTodosPlanos(): Promise<Plano[] | void[]> {
+  async listarTodosPlanos(): Promise<ExibirPlanoDto[] | void[]> {
     try {
       const buscarPlanos = await this.planoRepository.buscarTodos();
-      if (buscarPlanos.length === 0) {
+      if (!buscarPlanos) {
         throw new NotFoundException('Nenhum plano encontrado');
       }
       const exibirPlanos = buscarPlanos.map((plano) => {
-        new ExibirPlanoDto(plano);
+        return new ExibirPlanoDto(plano);
       });
       return exibirPlanos;
-    } catch {
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+
       throw new InternalServerErrorException('Erro ao listar planos');
     }
   }

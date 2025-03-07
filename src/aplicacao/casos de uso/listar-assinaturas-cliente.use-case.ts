@@ -21,11 +21,15 @@ export class ListarAssinaturasCliente {
       }
       const exibirAssinaturas = buscarAssinaturasPorCliente.map(
         (assinatura) => {
-          new ExibirAssinaturaDto(assinatura);
+          return new ExibirAssinaturaDto(assinatura);
         },
       );
       return exibirAssinaturas;
-    } catch {
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+
       throw new InternalServerErrorException(
         'Erro ao buscar assinaturas do cliente',
       );

@@ -24,7 +24,10 @@ export class AtualizarCustoPlano {
       const atualizarPlano = await this.planoRepository.salvar(buscarPlano);
       const exibirPlano = new ExibirPlanoDto(atualizarPlano);
       return exibirPlano;
-    } catch {
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
       throw new InternalServerErrorException(
         'Erro ao atualizar custo do plano',
       );

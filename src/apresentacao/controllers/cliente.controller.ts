@@ -5,8 +5,8 @@ import { ListarClientesCadastrados } from 'src/aplicacao/casos de uso/listar-cli
 export class ClienteController {
   constructor(private readonly listarClientes: ListarClientesCadastrados) {}
 
-  @Get('/clientes')
+  @Get('clientes')
   async listarTodosClientes() {
-    await this.listarClientes.listarTodosClientes();
+    return await this.listarClientes.listarTodosClientes();
   }
 }
