@@ -19,18 +19,21 @@ export class AssinaturaController {
     return await this.criarAssinatura.salvar(criarAssinaturaDto);
   }
 
-  @Get('/:tipo')
-  async listar(@Param() tipo: string) {
-    return await this.listarAssinaturasCadastradas.listar(tipo);
-  }
-
   @Get('clientes/:codCliente')
-  async listarPorCliente(@Param() codCliente: number) {
-    return await this.listarAssinaturasCliente.listarPorCliente(codCliente);
+  async listarPorCliente(@Param('codCliente') codCliente: number) {
+    return await this.listarAssinaturasCliente.listarPorCliente(
+      Number(codCliente),
+    );
   }
 
-  @Get('plano/:codPlano')
-  async listarPorPlano(@Param() codPlano: number) {
-    return await this.listarAssinaturasPlano.listarPorPlano(codPlano);
+  @Get('planos/:codPlano')
+  async listarPorPlano(@Param('codPlano') codPlano: number) {
+    return await this.listarAssinaturasPlano.listarPorPlano(Number(codPlano));
+  }
+
+  @Get(':tipo')
+  async listar(@Param('tipo') tipo: string) {
+    console.log(tipo);
+    return await this.listarAssinaturasCadastradas.listar(tipo);
   }
 }

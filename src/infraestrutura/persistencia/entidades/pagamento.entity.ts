@@ -1,27 +1,31 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import PlanoEntity from './plano.entity';
 import Pagamento from 'src/dominio/entidades/pagamento';
+import AssinaturaEntity from './assinatura.entity';
 
 @Entity('pagamentos')
 export default class PagamentoEntity {
   @PrimaryGeneratedColumn()
   codigo: number;
-  @OneToMany(() => PlanoEntity, (plano) => plano.codigo)
-  codPlano: PlanoEntity;
+  @OneToMany(() => AssinaturaEntity, (assinatura) => assinatura.codigo)
+  codAss: AssinaturaEntity;
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   valorPago: number;
   @Column({ type: 'date' })
   dataPagamento: Date;
 
-  constructor(codPlano: PlanoEntity, valorPago: number, dataPagamento: Date) {
-    this.codPlano = codPlano;
+  constructor(
+    codPlano: AssinaturaEntity,
+    valorPago: number,
+    dataPagamento: Date,
+  ) {
+    this.codAss = codPlano;
     this.valorPago = valorPago;
     this.dataPagamento = dataPagamento;
   }
 
   converterParaDominio(): Pagamento {
     return new Pagamento(
-      this.codPlano.converterParaDominio(),
+      this.codAss.converterParaDominio(),
       this.valorPago,
       this.dataPagamento,
     );
@@ -29,7 +33,7 @@ export default class PagamentoEntity {
 
   static converterParaEntidade(pagamento: Pagamento): PagamentoEntity {
     const entidadePagamento = new PagamentoEntity(
-      PlanoEntity.converterParaEntidade(pagamento.codPlano),
+      AssinaturaEntity.converterParaEntidade(pagamento.codAss),
       pagamento.valorPago,
       pagamento.dataPagamento,
     );

@@ -30,9 +30,13 @@ export class CriarAssinatura {
       }
 
       const instanciarAssinatura = new Assinatura(buscarPlano, buscarCliente);
-      const assinatura =
+      instanciarAssinatura.custoFinal =
+        instanciarAssinatura.codPlano.custoMensal -
+        instanciarAssinatura.codPlano.custoMensal *
+          instanciarAssinatura.custoFinal;
+      const salvarAssinatura =
         await this.assinaturaRepository.salvar(instanciarAssinatura);
-      const exibirAssinatura = new ExibirAssinaturaDto(assinatura);
+      const exibirAssinatura = new ExibirAssinaturaDto(salvarAssinatura);
       return exibirAssinatura;
     } catch (error) {
       if (error instanceof NotFoundException) {

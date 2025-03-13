@@ -8,6 +8,7 @@ import { ClienteModule } from './cliente.module';
 import { ListarAssinaturasCliente } from 'src/aplicacao/casos de uso/listar-assinaturas-cliente.use-case';
 import { ListarAssinaturasPlano } from 'src/aplicacao/casos de uso/listar-assinaturas-plano.use-case';
 import AssinaturaEntity from '../persistencia/entidades/assinatura.entity';
+import { AssinaturaController } from 'src/apresentacao/controllers/assinatura.controller';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import AssinaturaEntity from '../persistencia/entidades/assinatura.entity';
     ListarAssinaturasCliente,
     ListarAssinaturasPlano,
   ],
+  controllers: [AssinaturaController],
   exports: [AssinaturaRepository],
 })
 export class AssinaturaModule {}

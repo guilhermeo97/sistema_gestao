@@ -22,7 +22,9 @@ export class AssinaturaRepository {
   }
 
   async buscarTodos(): Promise<Assinatura[]> {
-    const buscar = await this.assinaturaRepository.find();
+    const buscar = await this.assinaturaRepository.find({
+      relations: ['plano', 'cliente'],
+    });
     if (buscar.length === 0) {
       return null;
     }
@@ -40,9 +42,11 @@ export class AssinaturaRepository {
   }
 
   async buscarAtivos(): Promise<Assinatura[]> {
-    const buscar = await this.assinaturaRepository.findBy({
-      fimFidelidade: MoreThanOrEqual(new Date()),
+    const buscar = await this.assinaturaRepository.find({
+      where: { fimFidelidade: MoreThanOrEqual(new Date()) },
+      relations: ['plano', 'cliente'],
     });
+    console.log(buscar);
     if (buscar.length === 0) {
       return null;
     }
@@ -50,8 +54,9 @@ export class AssinaturaRepository {
   }
 
   async buscarCancelados(): Promise<Assinatura[]> {
-    const buscar = await this.assinaturaRepository.findBy({
-      fimFidelidade: LessThan(new Date()),
+    const buscar = await this.assinaturaRepository.find({
+      where: { fimFidelidade: LessThan(new Date()) },
+      relations: ['plano', 'cliente'],
     });
     if (buscar.length === 0) {
       return null;
@@ -62,6 +67,7 @@ export class AssinaturaRepository {
   async buscarAssinaturasPorCliente(codCliente: number): Promise<Assinatura[]> {
     const buscar = await this.assinaturaRepository.find({
       where: { cliente: { codigo: codCliente } },
+      relations: ['plano', 'cliente'],
     });
     if (buscar.length === 0) {
       return null;
@@ -72,6 +78,7 @@ export class AssinaturaRepository {
   async buscarAssinaturasPorPlano(codPlano: number): Promise<Assinatura[]> {
     const buscar = await this.assinaturaRepository.find({
       where: { plano: { codigo: codPlano } },
+      relations: ['plano', 'cliente'],
     });
     if (buscar.length === 0) {
       return null;

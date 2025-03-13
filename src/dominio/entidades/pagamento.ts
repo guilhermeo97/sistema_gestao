@@ -1,13 +1,13 @@
-import Plano from './plano';
+import Assinatura from './assinatura';
 
 export default class Pagamento {
   private _codigo?: number;
-  private _codPlano: Plano;
+  private _codAss: Assinatura;
   private _valorPago: number;
   private _dataPagamento: Date;
 
-  constructor(codPlano: Plano, valorPago: number, dataPagamento: Date) {
-    this._codPlano = codPlano;
+  constructor(codAss: Assinatura, valorPago: number, dataPagamento: Date) {
+    this._codAss = codAss;
     this._valorPago = valorPago;
     this._dataPagamento = dataPagamento;
   }
@@ -19,12 +19,12 @@ export default class Pagamento {
   public set codigo(value: number | undefined) {
     this._codigo = value;
   }
-  public get codPlano(): Plano {
-    return this._codPlano;
+  public get codAss(): Assinatura {
+    return this._codAss;
   }
 
-  public set codPlano(value: Plano) {
-    this._codPlano = value;
+  public set codAssinatura(value: Assinatura) {
+    this._codAss = value;
   }
 
   public get valorPago(): number {

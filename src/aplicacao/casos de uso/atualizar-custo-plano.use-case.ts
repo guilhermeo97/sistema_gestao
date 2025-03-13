@@ -20,7 +20,7 @@ export class AtualizarCustoPlano {
       if (!buscarPlano) {
         throw new NotFoundException('Plano não encontrado');
       }
-      buscarPlano.custoMensal = atualizarCustoPlano.custo;
+      buscarPlano.custoMensal = atualizarCustoPlano.custoMensal;
       const atualizarPlano = await this.planoRepository.salvar(buscarPlano);
       const exibirPlano = new ExibirPlanoDto(atualizarPlano);
       return exibirPlano;

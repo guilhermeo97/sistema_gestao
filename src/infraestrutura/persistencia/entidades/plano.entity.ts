@@ -1,5 +1,4 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import Pagamento from './pagamento.entity';
 import AssinaturaEntity from './assinatura.entity';
 import Plano from 'src/dominio/entidades/plano';
 
@@ -17,8 +16,6 @@ export default class PlanoEntity {
   dataUltimoPagamento: Date;
   @OneToMany(() => AssinaturaEntity, (assinatura) => assinatura.plano)
   assinaturas: AssinaturaEntity[];
-  @OneToMany(() => Pagamento, (pagamento) => pagamento.codPlano)
-  pagamentos: Pagamento[];
 
   constructor(
     nome: string,

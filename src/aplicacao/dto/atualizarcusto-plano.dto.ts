@@ -1,3 +1,3 @@
 export class AtualizarCustoPlanoDto {
-  custo: number;
+  custoMensal: number;
 }

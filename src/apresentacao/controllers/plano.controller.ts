@@ -11,14 +11,17 @@ export class PlanoController {
   ) {}
   @Patch('/:codPlano')
   async atualizarPlano(
-    @Param() codigo: number,
+    @Param('codPlano') codPlano: number,
     @Body() atualizarCustoPlanoDto: AtualizarCustoPlanoDto,
   ) {
-    return this.atualizarCustoPlano.atualizar(codigo, atualizarCustoPlanoDto);
+    return await this.atualizarCustoPlano.atualizar(
+      codPlano,
+      atualizarCustoPlanoDto,
+    );
   }
 
   @Get()
   async listarTodosPlanos() {
-    await this.listarPlanosCadastrados.listarTodosPlanos();
+    return await this.listarPlanosCadastrados.listarTodosPlanos();
   }
 }

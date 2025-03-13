@@ -18,13 +18,10 @@ export class AssinaturaSeedService {
     for (const codigo of codigos) {
       const buscarCliente = await this.clienteRepository.buscarPorId(codigo);
       const buscarPlano = await this.planoRepository.buscarPorId(codigo);
-      console.log(
-        'codigo cliente: ',
-        buscarCliente,
-        'nome cliente: ',
-        buscarPlano,
-      );
       const criar = new Assinatura(buscarPlano, buscarCliente);
+      criar.custoFinal =
+        criar.codPlano.custoMensal -
+        criar.codPlano.custoMensal * criar.custoFinal;
       lista.push(criar);
     }
     return lista;

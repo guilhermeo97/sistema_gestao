@@ -27,7 +27,7 @@ export class ListarAssinaturasPlano {
         throw error;
       }
       throw new InternalServerErrorException(
-        'Erro ao buscar assinaturas do cliente',
+        'Erro ao buscar assinaturas do plano',
       );
     }
   }
