@@ -8,6 +8,7 @@ import { ClienteModule } from './infraestrutura/modulos/cliente.module';
 import { PagamentoModule } from './infraestrutura/modulos/pagamento.module';
 import { PlanoModule } from './infraestrutura/modulos/plano.module';
 import { SeedModule } from './infraestrutura/modulos/seed.module';
+import { MensageriaModule } from './infraestrutura/modulos/mensageria.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { SeedModule } from './infraestrutura/modulos/seed.module';
     PlanoModule,
     ConfigModule.forRoot({ isGlobal: true }),
     DbModule,
+    MensageriaModule,
     SeedModule,
   ],
   controllers: [AppController],

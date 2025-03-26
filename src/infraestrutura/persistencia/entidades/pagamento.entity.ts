@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import Pagamento from 'src/dominio/entidades/pagamento';
 import AssinaturaEntity from './assinatura.entity';
 
@@ -6,7 +6,7 @@ import AssinaturaEntity from './assinatura.entity';
 export default class PagamentoEntity {
   @PrimaryGeneratedColumn()
   codigo: number;
-  @OneToMany(() => AssinaturaEntity, (assinatura) => assinatura.codigo)
+  @ManyToOne(() => AssinaturaEntity, (assinatura) => assinatura.codigo)
   codAss: AssinaturaEntity;
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   valorPago: number;

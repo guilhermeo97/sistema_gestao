@@ -14,6 +14,7 @@ export class AssinaturaRepository {
   async buscarPorId(codigo: number): Promise<Assinatura> {
     const buscar = await this.assinaturaRepository.findOne({
       where: { codigo },
+      relations: ['plano', 'cliente'],
     });
     if (!buscar) {
       return null;

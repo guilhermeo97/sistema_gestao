@@ -29,9 +29,12 @@ export class PagamentoRepository {
     return buscar.map((pagamento) => pagamento.converterParaDominio());
   }
 
-  async salvse(pagamento: Pagamento): Promise<Pagamento> {
+  async salvar(pagamento: Pagamento): Promise<Pagamento> {
     const entidade = PagamentoEntity.converterParaEntidade(pagamento);
+    //console.log('Instância de pagamento: ', entidade);
+
     const salvar = await this.pagamentoRepository.save(entidade);
+    //console.log('Salvo no banco: ', salvar);
     return salvar.converterParaDominio();
   }
 

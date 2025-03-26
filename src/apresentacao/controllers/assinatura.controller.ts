@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+} from '@nestjs/common';
 import { CriarAssinatura } from 'src/aplicacao/casos de uso/criar-assinatura.use-case';
 import { ListarAssinaturasCadastradas } from 'src/aplicacao/casos de uso/listar-assinatas.use-case';
 import { ListarAssinaturasCliente } from 'src/aplicacao/casos de uso/listar-assinaturas-cliente.use-case';
@@ -20,15 +27,15 @@ export class AssinaturaController {
   }
 
   @Get('clientes/:codCliente')
-  async listarPorCliente(@Param('codCliente') codCliente: number) {
-    return await this.listarAssinaturasCliente.listarPorCliente(
-      Number(codCliente),
-    );
+  async listarPorCliente(
+    @Param('codCliente', ParseIntPipe) codCliente: number,
+  ) {
+    return await this.listarAssinaturasCliente.listarPorCliente(codCliente);
   }
 
   @Get('planos/:codPlano')
-  async listarPorPlano(@Param('codPlano') codPlano: number) {
-    return await this.listarAssinaturasPlano.listarPorPlano(Number(codPlano));
+  async listarPorPlano(@Param('codPlano', ParseIntPipe) codPlano: number) {
+    return await this.listarAssinaturasPlano.listarPorPlano(codPlano);
   }
 
   @Get(':tipo')
