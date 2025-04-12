@@ -30,6 +30,7 @@ export class AssinaturaController {
   async listarPorCliente(
     @Param('codCliente', ParseIntPipe) codCliente: number,
   ) {
+    console.log(codCliente);
     return await this.listarAssinaturasCliente.listarPorCliente(codCliente);
   }
 

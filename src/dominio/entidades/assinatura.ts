@@ -29,12 +29,11 @@ export default class Assinatura {
       ? this.gerarDataFidelidade(this._inicioFidelidade)
       : fimFidelidade;
     this._codigo = codigo;
-    this._status = !dataUltimoPagamento
-      ? undefined
-      : this.definirStatus(dataUltimoPagamento);
+
     this._dataUltimoPagamento = !dataUltimoPagamento
       ? new Date()
       : dataUltimoPagamento;
+    this._status = !dataUltimoPagamento ? 'ATIVO' : this.definirStatus();
     this._custoFinal = !custoFinal ? 0.1 : custoFinal;
     this._descricao = !descricao ? undefined : descricao;
   }
@@ -45,10 +44,9 @@ export default class Assinatura {
     return fimFidelidade;
   }
 
-  private definirStatus(data: Date): string {
-    const diferenca = Math.abs(
-      this._inicioFidelidade.getTime() - data.getTime(),
-    );
+  private definirStatus(): string {
+    const diferenca =
+      new Date().getTime() - this._dataUltimoPagamento.getTime();
     const diffDias = diferenca / (1000 * 60 * 60 * 24);
     if (diffDias > 30) {
       return 'CANCELADO';

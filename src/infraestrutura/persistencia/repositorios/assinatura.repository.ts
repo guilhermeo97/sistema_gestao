@@ -43,11 +43,11 @@ export class AssinaturaRepository {
   }
 
   async buscarAtivos(): Promise<Assinatura[]> {
+    const diferenca = new Date(new Date().getTime() - 30 * 24 * 60 * 60 * 1000);
     const buscar = await this.assinaturaRepository.find({
-      where: { fimFidelidade: MoreThanOrEqual(new Date()) },
+      where: { dataUltimoPagamento: MoreThanOrEqual(diferenca) },
       relations: ['plano', 'cliente'],
     });
-    console.log(buscar);
     if (buscar.length === 0) {
       return null;
     }
@@ -55,8 +55,9 @@ export class AssinaturaRepository {
   }
 
   async buscarCancelados(): Promise<Assinatura[]> {
+    const diferenca = new Date(new Date().getTime() - 30 * 24 * 60 * 60 * 1000);
     const buscar = await this.assinaturaRepository.find({
-      where: { fimFidelidade: LessThan(new Date()) },
+      where: { dataUltimoPagamento: LessThan(diferenca) },
       relations: ['plano', 'cliente'],
     });
     if (buscar.length === 0) {
